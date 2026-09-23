@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaWeb Colombia - Diseño y Desarrollo Web Profesional</title>
+
+<!-- Configuración de Tailwind (Definida antes del script para evitar ReferenceError) -->
+<script>
+    window.tailwind = {
+        config: {
+            theme: {
+                extend: {
+                    colors: {
+                        violet: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                        },
+                        cyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                        },
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
+                        },
+                        rose: {
+                            500: '#f43f5e',
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    };
+</script>
+
+<!-- Tailwind CSS CDN Script -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Resets de seguridad para evitar enlaces azules sin formato */
+        *, ::before, ::after {
+            box-sizing: border-box;
+        }
+        a { 
+            color: inherit; 
+            text-decoration: none; 
+        }
+        .hidden { 
+            display: none !important; 
+        }
+        @media (min-width: 768px) {
+            .md\:flex { display: flex !important; }
+            .md\:hidden { display: none !important; }
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #0b0f19;
+            color: #f1f5f9;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.3);
+        }
+
+        /* Gradient Glows and Text */
+        .text-gradient-purple {
+            background: linear-gradient(135deg, #c084fc 0%, #a855f7 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-emerald {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Background Mesh Orbs */
+        .mesh-orb-1 {
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+        .mesh-orb-2 {
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+        .mesh-orb-3 {
+            background: radial-gradient(circle, rgba(244, 63, 94, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+
+        /* Animated pulse ring */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.05); }
+        }
+        .animate-glow {
+            animation: pulseGlow 4s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="selection:bg-purple-500 selection:text-white">
+
+    <!-- Header / Nav -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-slate-800/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo con gradiente vívido -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-cyan-400 p-[2px] shadow-lg shadow-emerald-500/25 transform group-hover:rotate-6 transition-transform">
+                    <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+                        <i class="fa-solid fa-code text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 text-lg"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-white">NOVA<span class="text-gradient-emerald">WEB</span></span>
+                    <span class="block text-[10px] tracking-widest text-emerald-400 font-semibold uppercase">COLOMBIA • Desarrollo Web</span>
+                </div>
+            </a>
+
+            <!-- Menú de navegación -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-300">
+                <a href="#modelos" class="hover:text-purple-400 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-layer-group text-xs text-purple-400"></i> Modelos Interactivos
+                </a>
+                <a href="#beneficios" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-bolt text-xs text-cyan-400"></i> Ventajas Únicas
+                </a>
+                <a href="#cotizador" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-calculator text-xs text-emerald-400"></i> Cotizador
+                </a>
+                <a href="#proceso" class="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-list-check text-xs text-amber-400"></i> Proceso
+                </a>
+            </nav>
+
+            <!-- Botones de Acción -->
+        <div class="flex items-center space-x-4">
+            <a href="https://wa.me/573001234567?text=Hola!%20Vi%20tu%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20cotizar%20un%20dise%C3%B1o%20profesional%20para%20mi%20negocio." 
+               target="_blank" 
+               class="hidden sm:inline-flex items-center space-x-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold px-5 py-2.5 rounded-2xl text-xs transition-all transform hover:scale-105 shadow-lg shadow-emerald-500/25">
+                <i class="fa-brands fa-whatsapp text-base"></i>
+                <span>Escribir por WhatsApp</span>
+            </a>
+            <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white p-2">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-950/95 border-b border-slate-800 px-6 py-6 space-y-4 backdrop-blur-xl">
+            <a href="#modelos" class="block text-slate-200 hover:text-purple-400 font-semibold py-2">Modelos Interactivos</a>
+            <a href="#beneficios" class="block text-slate-200 hover:text-cyan-400 font-semibold py-2">Ventajas Únicas</a>
+            <a href="#cotizador" class="block text-slate-200 hover:text-emerald-400 font-semibold py-2">Cotizador Express</a>
+        <a href="#proceso" class="block text-slate-200 hover:text-amber-400 font-semibold py-2">Proceso de Trabajo</a>
+        <a href="https://wa.me/573001234567?text=Hola!%20Me%20interesa%20crear%20una%20p%C3%A1gina%20web%20para%20mi%20negocio." target="_blank" class="w-full flex items-center justify-center space-x-2 bg-emerald-500 text-white py-3 rounded-xl font-bold text-sm">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>Hablar por WhatsApp</span>
+        </a>
+    </div>
+</header>
+
+    <!-- Hero Section con Luces Neón y Gradientes -->
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+        
+        <!-- Luces Neón de Fondo -->
+        <div class="mesh-orb-1 absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full pointer-events-none animate-glow"></div>
+        <div class="mesh-orb-2 absolute top-40 -left-20 w-[500px] h-[500px] rounded-full pointer-events-none"></div>
+        <div class="mesh-orb-3 absolute top-60 -right-20 w-[500px] h-[500px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <!-- Badge de Disponibilidad -->
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-slate-900/80 border border-emerald-500/30 text-xs font-bold text-emerald-300 mb-8 backdrop-blur-lg shadow-lg shadow-emerald-500/10">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span>NovaWeb Colombia • Diseño & Desarrollo Web Profesional</span>
+            </div>
+
+            <!-- Título Principal NovaWeb -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 leading-tight">
+                De Clientes Potenciales a<br>
+                <span class="text-gradient-emerald">Verdaderos Compradores</span>
+            </h1>
+
+            <p class="max-w-3xl mx-auto text-lg sm:text-xl text-slate-300 mb-8 font-normal leading-relaxed">
+                Creamos tu presencia, ¡impulsamos tu negocio! Diseñamos sitios web profesionales, ultrarrápidos, optimizados para celulares e indexados para Google con conexión directa a WhatsApp.
+            </p>
+
+            <!-- Lista de Características Principales NovaWeb -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-4xl mx-auto mb-10 text-left">
+                <div class="glass-card p-4 rounded-2xl flex items-center space-x-3 border border-emerald-500/20">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Hosting y Dominio SSL</h4>
+                        <p class="text-[10px] text-slate-400">Seguridad y hosting incluido</p>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center space-x-3 border border-emerald-500/20">
+                    <div class="w-9 h-9 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center shrink-0">
+                        <i class="fa-brands fa-google"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Indexación para Google</h4>
+                        <p class="text-[10px] text-slate-400">Optimizadas para buscadores</p>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center space-x-3 border border-emerald-500/20">
+                    <div class="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Conexión Redes Sociales</h4>
+                        <p class="text-[10px] text-slate-400">WhatsApp, Instagram y Facebook</p>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl flex items-center space-x-3 border border-emerald-500/20">
+                    <div class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">Diseño Responsivo</h4>
+                        <p class="text-[10px] text-slate-400">Adaptable a celulares y tablets</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones CTA principales -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
+                <a href="#modelos" class="w-full sm:w-auto bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-extrabold px-8 py-4 rounded-2xl shadow-xl shadow-emerald-500/25 transition-all transform hover:-translate-y-1 flex items-center justify-center space-x-3 text-base">
+                    <span>Explorar Modelos Interactivos</span>
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </a>
+                <a href="#cotizador" class="w-full sm:w-auto glass-card hover:bg-slate-800/80 text-slate-200 border border-slate-700 font-bold px-8 py-4 rounded-2xl transition-all flex items-center justify-center space-x-3 text-base">
+                    <i class="fa-solid fa-calculator text-emerald-400"></i>
+                    <span>Solicitar Cotización</span>
+                </a>
+            </div>
+
+            <!-- Métrica & Highlights en Tarjetas Brillantes -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto pt-8 border-t border-slate-800/60">
+                <div class="glass-card p-5 rounded-2xl text-center">
+                    <div class="text-3xl font-black text-gradient-purple">100%</div>
+                    <div class="text-xs font-semibold text-slate-400 mt-1">Diseño Móvil Fluido</div>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center">
+                    <div class="text-3xl font-black text-gradient-emerald">&lt; 1.2s</div>
+                    <div class="text-xs font-semibold text-slate-400 mt-1">Velocidad Ultrarrápida</div>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center">
+                    <div class="text-3xl font-black text-gradient-gold">Directo</div>
+                    <div class="text-xs font-semibold text-slate-400 mt-1">Ventas a WhatsApp</div>
+                </div>
+                <div class="glass-card p-5 rounded-2xl text-center">
+                    <div class="text-3xl font-black text-cyan-400">24/7</div>
+                    <div class="text-xs font-semibold text-slate-400 mt-1">Soporte y Garantía</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Modelos de Negocio Interactivos -->
+    <section id="modelos" class="py-24 bg-slate-950/80 relative border-y border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-purple-400 text-xs font-extrabold uppercase tracking-widest bg-purple-500/10 px-4 py-1.5 rounded-full border border-purple-500/20">
+                    Catálogo de Demos Reales
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight mt-4 mb-4">
+                    Modelos Listos para Tu Negocio
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg">
+                    Haz clic en cualquier modelo para abrir el **Simulador Interactivo** y probar cómo se verá en computadora o celular.
+                </p>
+
+                <!-- Filtros dinámicos coloridos -->
+                <div class="flex flex-wrap justify-center gap-2.5 mt-8" id="filter-buttons">
+                    <button data-filter="all" class="filter-btn active px-6 py-2.5 rounded-xl text-xs font-extrabold transition-all bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-600/20">
+                        Todos los Modelos
+                    </button>
+                    <button data-filter="agenda" class="filter-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-900 border border-slate-800 text-slate-300 hover:border-amber-500/50 hover:text-amber-400">
+                        <i class="fa-regular fa-calendar-check mr-1.5 text-amber-400"></i> Citas / Agendas
+                    </button>
+                    <button data-filter="restaurante" class="filter-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-900 border border-slate-800 text-slate-300 hover:border-rose-500/50 hover:text-rose-400">
+                        <i class="fa-solid fa-utensils mr-1.5 text-rose-400"></i> Menús / Restaurantes
+                    </button>
+                    <button data-filter="tienda" class="filter-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-900 border border-slate-800 text-slate-300 hover:border-cyan-500/50 hover:text-cyan-400">
+                        <i class="fa-solid fa-bag-shopping mr-1.5 text-cyan-400"></i> Catálogo / Tienda
+                    </button>
+                    <button data-filter="servicios" class="filter-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-900 border border-slate-800 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400">
+                        <i class="fa-solid fa-briefcase mr-1.5 text-emerald-400"></i> Empresas & Servicios
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grilla de Modelos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="models-grid">
+
+                <!-- Tarjeta 1: Barbería & Estilo -->
+                <div class="model-card glass-card rounded-3xl overflow-hidden flex flex-col group transition-all duration-300" data-category="agenda">
+                    <div class="relative h-60 bg-gradient-to-br from-amber-950 via-slate-900 to-amber-900 flex items-center justify-center p-6 overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                        <div class="text-center z-10 transform group-hover:scale-105 transition-transform">
+                            <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 mx-auto flex items-center justify-center text-3xl mb-3 shadow-lg shadow-amber-500/20">
+                                <i class="fa-solid fa-scissors"></i>
+                            </div>
+                            <h4 class="font-black text-white text-xl">Urban Barber Club</h4>
+                            <p class="text-xs text-amber-200/80 font-medium mt-1">Reserva de Turnos & Selección de Barbero</p>
+                        </div>
+                        <span class="absolute top-4 right-4 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                            Popular
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-white">Barbería & Spa Masculino</h3>
+                                <span class="text-xs font-bold text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-lg">Citas</span>
+                            </div>
+                            <p class="text-slate-400 text-sm mb-5 leading-relaxed">
+                                Permite a tus clientes reservar turno, elegir Barbero de preferencia y horario libre. Confirmación automática directa a WhatsApp.
+                            </p>
+                            <div class="space-y-2 mb-6 text-xs text-slate-300">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Calendario de horarios dinámico</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Menú de servicios con precios claros</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Recordatorio directo por WhatsApp</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="openDemo('barberia')" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black py-3.5 rounded-xl transition-all shadow-lg shadow-amber-500/20 text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Probar Demo en Vivo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2: Restaurante / Menú QR -->
+                <div class="model-card glass-card rounded-3xl overflow-hidden flex flex-col group transition-all duration-300" data-category="restaurante">
+                    <div class="relative h-60 bg-gradient-to-br from-rose-950 via-slate-900 to-red-900 flex items-center justify-center p-6 overflow-hidden">
+                        <div class="text-center z-10 transform group-hover:scale-105 transition-transform">
+                            <div class="w-16 h-16 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-400 mx-auto flex items-center justify-center text-3xl mb-3 shadow-lg shadow-rose-500/20">
+                                <i class="fa-solid fa-burger"></i>
+                            </div>
+                            <h4 class="font-black text-white text-xl">Gourmet Grill & Burger</h4>
+                            <p class="text-xs text-rose-200/80 font-medium mt-1">Menú Digital QR + Carrito de Pedidos</p>
+                        </div>
+                        <span class="absolute top-4 right-4 bg-rose-500/20 text-rose-300 border border-rose-500/40 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                            Top Ventas
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-white">Restaurante & Comida Rápida</h3>
+                                <span class="text-xs font-bold text-rose-400 bg-rose-400/10 px-2.5 py-1 rounded-lg">Menú QR</span>
+                            </div>
+                            <p class="text-slate-400 text-sm mb-5 leading-relaxed">
+                                Carta digital interactiva para mesa o envío a domicilio. El cliente arma su pedido con adicionales y envía el total exacto a la cocina.
+                            </p>
+                            <div class="space-y-2 mb-6 text-xs text-slate-300">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Platillos categorizados con fotos tentadoras</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Suma automática de pedido y domicilio</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Compatible con Código QR para mesas</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="openDemo('restaurante')" class="w-full bg-gradient-to-r from-rose-500 to-red-500 hover:from-rose-400 hover:to-red-400 text-white font-black py-3.5 rounded-xl transition-all shadow-lg shadow-rose-500/20 text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Probar Demo en Vivo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3: Boutique / Tienda Online -->
+                <div class="model-card glass-card rounded-3xl overflow-hidden flex flex-col group transition-all duration-300" data-category="tienda">
+                    <div class="relative h-60 bg-gradient-to-br from-cyan-950 via-slate-900 to-indigo-900 flex items-center justify-center p-6 overflow-hidden">
+                        <div class="text-center z-10 transform group-hover:scale-105 transition-transform">
+                            <div class="w-16 h-16 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 mx-auto flex items-center justify-center text-3xl mb-3 shadow-lg shadow-cyan-500/20">
+                                <i class="fa-solid fa-shirt"></i>
+                            </div>
+                            <h4 class="font-black text-white text-xl">Moda Trend Boutique</h4>
+                            <p class="text-xs text-cyan-200/80 font-medium mt-1">Catálogo de Productos & Carrito</p>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-white">Boutique & Tienda Online</h3>
+                                <span class="text-xs font-bold text-cyan-400 bg-cyan-400/10 px-2.5 py-1 rounded-lg">E-Commerce</span>
+                            </div>
+                            <p class="text-slate-400 text-sm mb-5 leading-relaxed">
+                                Vende ropa, zapatos, accesorios o tecnología. Muestra tallas, colores, precios con descuento y checkout directo por chat.
+                            </p>
+                            <div class="space-y-2 mb-6 text-xs text-slate-300">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Buscador y filtros por categoría</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Variación de tallas y colores</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Botón directo de compra inmediata</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="openDemo('tienda')" class="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-black py-3.5 rounded-xl transition-all shadow-lg shadow-cyan-500/20 text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Probar Demo en Vivo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 4: Clínica Dental & Médica -->
+                <div class="model-card glass-card rounded-3xl overflow-hidden flex flex-col group transition-all duration-300" data-category="agenda">
+                    <div class="relative h-60 bg-gradient-to-br from-teal-950 via-slate-900 to-emerald-950 flex items-center justify-center p-6 overflow-hidden">
+                        <div class="text-center z-10 transform group-hover:scale-105 transition-transform">
+                            <div class="w-16 h-16 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-400 mx-auto flex items-center justify-center text-3xl mb-3 shadow-lg shadow-teal-500/20">
+                                <i class="fa-solid fa-stethoscope"></i>
+                            </div>
+                            <h4 class="font-black text-white text-xl">Centro Dental & Salud</h4>
+                            <p class="text-xs text-teal-200/80 font-medium mt-1">Valoraciones & Especialidades</p>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-white">Clínicas & Consultorios</h3>
+                                <span class="text-xs font-bold text-teal-400 bg-teal-400/10 px-2.5 py-1 rounded-lg">Salud</span>
+                            </div>
+                            <p class="text-slate-400 text-sm mb-5 leading-relaxed">
+                                Proyecta máxima confianza institucional. Muestra perfil de doctores, tratamientos, ubicación exacta en Google Maps y agenda médica.
+                            </p>
+                            <div class="space-y-2 mb-6 text-xs text-slate-300">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Formulario de cita médica prioritaria</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Sección de Preguntas Frecuentes (FAQ)</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Ubicación GPS e integración a Google Maps</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="openDemo('clinica')" class="w-full bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-slate-950 font-black py-3.5 rounded-xl transition-all shadow-lg shadow-teal-500/20 text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Probar Demo en Vivo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 5: Servicios Corporativos & Empresa -->
+                <div class="model-card glass-card rounded-3xl overflow-hidden flex flex-col group transition-all duration-300" data-category="servicios">
+                    <div class="relative h-60 bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 flex items-center justify-center p-6 overflow-hidden">
+                        <div class="text-center z-10 transform group-hover:scale-105 transition-transform">
+                            <div class="w-16 h-16 rounded-2xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 mx-auto flex items-center justify-center text-3xl mb-3 shadow-lg shadow-indigo-500/20">
+                                <i class="fa-solid fa-building"></i>
+                            </div>
+                            <h4 class="font-black text-white text-xl">Servicios Corporativos</h4>
+                            <p class="text-xs text-indigo-200/80 font-medium mt-1">Mecánica, Abogados, Obras</p>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-white">Empresas & Soluciones</h3>
+                                <span class="text-xs font-bold text-indigo-400 bg-indigo-400/10 px-2.5 py-1 rounded-lg">Corporativo</span>
+                            </div>
+                            <p class="text-slate-400 text-sm mb-5 leading-relaxed">
+                                Diseñada para destacar proyectos concluidos, testimonios de clientes satisfechos y solicitar presupuestos o cotizaciones formales.
+                            </p>
+                            <div class="space-y-2 mb-6 text-xs text-slate-300">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Galería de proyectos Antes y Después</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Formulario de cotización detallado</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Botón telefónico de llamada de emergencia</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="openDemo('servicios')" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-black py-3.5 rounded-xl transition-all shadow-lg shadow-indigo-500/20 text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Probar Demo en Vivo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 6: Gimnasio & Fitness Studio -->
+                <div class="model-card glass-card rounded-3xl overflow-hidden flex flex-col group transition-all duration-300" data-category="servicios">
+                    <div class="relative h-60 bg-gradient-to-br from-emerald-950 via-slate-900 to-lime-950 flex items-center justify-center p-6 overflow-hidden">
+                        <div class="text-center z-10 transform group-hover:scale-105 transition-transform">
+                            <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 mx-auto flex items-center justify-center text-3xl mb-3 shadow-lg shadow-emerald-500/20">
+                                <i class="fa-solid fa-dumbbell"></i>
+                            </div>
+                            <h4 class="font-black text-white text-xl">Power Fitness Club</h4>
+                            <p class="text-xs text-emerald-200/80 font-medium mt-1">Planes, Membresías & Entrenadores</p>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-white">Gimnasios & Academias</h3>
+                                <span class="text-xs font-bold text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-lg">Fitness</span>
+                            </div>
+                            <p class="text-slate-400 text-sm mb-5 leading-relaxed">
+                                Atraiga nuevos inscritos mostrando planes mensuales, clases grupales con horarios y pase de prueba gratuito por WhatsApp.
+                            </p>
+                            <div class="space-y-2 mb-6 text-xs text-slate-300">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Tabla comparativa de planes y membresías</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Pase libre de 1 día de prueba</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                    <span>Horarios de clases (Crossfit, Yoga, Spinning)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="openDemo('fitness')" class="w-full bg-gradient-to-r from-emerald-500 to-lime-500 hover:from-emerald-400 hover:to-lime-400 text-slate-950 font-black py-3.5 rounded-xl transition-all shadow-lg shadow-emerald-500/20 text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Probar Demo en Vivo</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Diferenciadores / Beneficios -->
+    <section id="beneficios" class="py-24 bg-slate-900/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-cyan-400 text-xs font-extrabold uppercase tracking-widest bg-cyan-500/10 px-4 py-1.5 rounded-full border border-cyan-500/20">
+                    Calidad Profesional
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight mt-4">
+                    ¿Por qué mis páginas son superiores?
+                </h2>
+                <p class="text-slate-400 text-base sm:text-lg mt-4">
+                    Muchas agencias cobran fortunas por plantillas viejas e incompletas. Mi compromiso es entregarte una herramienta lista para dar resultados reales.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl font-bold mb-6 border border-purple-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Diseño Adaptado a Celulares</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Más del 85% de tus clientes navegarán desde su teléfono inteligente. Tu web lucirá veloz, perfecta y cómoda para tocar botones sin esfuerzo.
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl font-bold mb-6 border border-emerald-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Conexión Directa a WhatsApp</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Los clientes no quieren llenar formularios interminables. Integramos enlaces directos que abren un mensaje pre-redactado en tu celular.
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl font-bold mb-6 border border-amber-500/30 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Súper Velocidad de Carga</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Estructuras livianas sin programas pesados. Tus clientes no esperarán cargando y Google te posicionará mejor frente a tus competidores.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Cotizador Interactivo -->
+    <section id="cotizador" class="py-24 bg-slate-950 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-panel rounded-3xl p-6 sm:p-12 shadow-2xl relative overflow-hidden border border-emerald-500/20">
+                
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="bg-emerald-500/10 text-emerald-400 text-xs font-black px-4 py-1.5 rounded-full border border-emerald-500/20 uppercase tracking-widest">
+                        Cotizador Personalizado
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mt-4">Arma el Paquete para Tu Negocio</h2>
+                    <p class="text-slate-400 text-sm mt-2">
+                        Selecciona las características que necesita tu proyecto y solicita tu cotización directa por WhatsApp.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                    
+                    <!-- Opciones seleccionables -->
+                    <div class="lg:col-span-2 space-y-4" id="calc-options">
+                        
+                        <label class="flex items-center justify-between p-4 bg-slate-900/90 border border-slate-800 rounded-2xl cursor-not-allowed">
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" checked disabled class="w-5 h-5 rounded text-emerald-500 bg-slate-950 border-slate-700">
+                                <div>
+                                    <p class="text-sm font-bold text-white">Sitio Web Base + Hosting y Dominio SSL</p>
+                                    <p class="text-xs text-slate-400">Diseño 100% adaptable a celulares, certificado de seguridad y conexión a WhatsApp</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-400 ml-2 bg-emerald-500/10 px-2.5 py-1 rounded-lg">Incluido</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-4 bg-slate-900/60 border border-slate-800 rounded-2xl cursor-pointer hover:border-emerald-500/50 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" value="Indexación Google" class="calc-check w-5 h-5 rounded text-emerald-500 bg-slate-950 border-slate-700">
+                                <div>
+                                    <p class="text-sm font-bold text-white">Indexación para Google</p>
+                                    <p class="text-xs text-slate-400">Configuración para aparecer en los buscadores principales</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-cyan-400 ml-2 bg-cyan-500/10 px-2.5 py-1 rounded-lg">Opcional</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-4 bg-slate-900/60 border border-slate-800 rounded-2xl cursor-pointer hover:border-emerald-500/50 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" value="Sistema de Reservas" class="calc-check w-5 h-5 rounded text-emerald-500 bg-slate-950 border-slate-700">
+                                <div>
+                                    <p class="text-sm font-bold text-white">Sistema de Reserva de Citas / Agenda</p>
+                                    <p class="text-xs text-slate-400">Calendario interactivo para agendar día, hora y personal</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-cyan-400 ml-2 bg-cyan-500/10 px-2.5 py-1 rounded-lg">Opcional</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-4 bg-slate-900/60 border border-slate-800 rounded-2xl cursor-pointer hover:border-emerald-500/50 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" value="Catálogo y Carrito" class="calc-check w-5 h-5 rounded text-emerald-500 bg-slate-950 border-slate-700">
+                                <div>
+                                    <p class="text-sm font-bold text-white">Catálogo de Productos / Menú con Carrito</p>
+                                    <p class="text-xs text-slate-400">Listado de productos/platillos con fotos en HD y pedidos directos a chat</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-cyan-400 ml-2 bg-cyan-500/10 px-2.5 py-1 rounded-lg">Opcional</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-4 bg-slate-900/60 border border-slate-800 rounded-2xl cursor-pointer hover:border-emerald-500/50 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" value="Conexión Redes Sociales" class="calc-check w-5 h-5 rounded text-emerald-500 bg-slate-950 border-slate-700">
+                                <div>
+                                    <p class="text-sm font-bold text-white">Conexión a Redes Sociales y Google Maps</p>
+                                    <p class="text-xs text-slate-400">Integración con Instagram, Facebook y mapa de ubicación GPS</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold text-cyan-400 ml-2 bg-cyan-500/10 px-2.5 py-1 rounded-lg">Opcional</span>
+                        </label>
+
+                    </div>
+
+                    <!-- Resultado de la Estimación sin Precio Explicito -->
+                    <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/30 rounded-2xl p-6 text-center flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-black text-slate-400 uppercase tracking-widest block">Tu Propuesta</span>
+                            <div class="my-6">
+                                <span class="text-2xl font-black text-gradient-emerald" id="calc-summary">Paquete a Tu Medida</span>
+                                <span class="text-xs text-slate-400 block mt-2 font-medium">Asesoría Directa por WhatsApp</span>
+                            </div>
+                            <ul class="text-xs text-slate-300 space-y-2 text-left mb-6 bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Hosting y Dominio SSL Incluidos</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Indexación para Google</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Integración directa a WhatsApp</li>
+                        </ul>
+                    </div>
+
+                    <button onclick="sendCalculatedQuote()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black py-4 px-4 rounded-xl transition-all shadow-xl shadow-emerald-500/25 text-sm flex items-center justify-center space-x-2">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span>Recibir propuesta exacta de mi paquete</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso de Trabajo -->
+    <section id="proceso" class="py-24 bg-slate-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-amber-400 text-xs font-black uppercase tracking-widest bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20">
+                    Proceso Sencillo
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mt-4">Tu Sitio Web Listo en 4 Pasos</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="glass-card p-6 rounded-3xl relative border border-slate-800">
+                    <span class="text-5xl font-black text-purple-500/20 absolute top-4 right-4">01</span>
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold mb-4">1</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Elegir Modelo</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Seleccionas el diseño que mejor se adapte a tu rubro o me envías tus referencias e ideas.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl relative border border-slate-800">
+                    <span class="text-5xl font-black text-cyan-500/20 absolute top-4 right-4">02</span>
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold mb-4">2</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Personalización</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Colocamos tu logotipo, fotos de alta calidad, texto descriptivo y tus colores corporativos.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl relative border border-slate-800">
+                    <span class="text-5xl font-black text-emerald-500/20 absolute top-4 right-4">03</span>
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold mb-4">3</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Conectar WhatsApp</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Configuramos la recepción automática de mensajes y pedidos directamente en tu celular.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-3xl relative border border-slate-800">
+                    <span class="text-5xl font-black text-amber-500/20 absolute top-4 right-4">04</span>
+                    <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold mb-4">4</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Lanzamiento</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Publicamos tu página bajo tu propio dominio (ejemplo: www.tunegocio.com) en internet.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Final CTA -->
+<section class="py-20 bg-gradient-to-r from-purple-900 via-indigo-950 to-slate-950 border-t border-slate-800 text-center relative overflow-hidden">
+    <div class="max-w-4xl mx-auto px-4 relative z-10">
+        <h2 class="text-3xl sm:text-5xl font-black text-white mb-4">
+            ¿Listo para destacar sobre tu competencia y vender más?
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg mb-8 max-w-2xl mx-auto">
+            Envíame tus fotos o la idea de tu negocio por WhatsApp y te envío una propuesta visual personalizada sin compromiso.
+        </p>
+        <a href="https://wa.me/573001234567?text=Hola!%20Quiero%20crear%20una%20p%C3%A1gina%20web%20para%20mi%20negocio.%20%C2%BFMe%20puedes%20dar%20informaci%C3%B3n?" 
+           target="_blank" 
+           class="inline-flex items-center space-x-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-black px-10 py-5 rounded-2xl shadow-2xl shadow-emerald-500/30 transition-all transform hover:scale-105 text-lg">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                <span>Comenzar Proyecto por WhatsApp</span>
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-8 bg-slate-950 border-t border-slate-900 text-center text-xs text-slate-500">
+        <p>© 2026 NovaWeb Colombia • Diseño y Desarrollo de Páginas Web Profesionales</p>
+    </footer>
+
+    <!-- Modal Simulador Interactivo de Demos -->
+    <div id="demo-modal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-xl flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[94vh]">
+            
+            <!-- Barra superior del Modal -->
+            <div class="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span id="modal-badge" class="px-3 py-1 rounded-full text-[10px] font-extrabold bg-purple-500/20 text-purple-300 border border-purple-500/30 uppercase">
+                        DEMO INTERACTIVA
+                    </span>
+                    <h3 id="modal-title" class="text-sm sm:text-base font-extrabold text-white">Nombre del Modelo</h3>
+                </div>
+
+                <!-- Selector de Vista (Laptop vs Celular) -->
+                <div class="hidden sm:flex items-center bg-slate-900 border border-slate-800 rounded-xl p-1 space-x-1">
+                    <button onclick="switchView('desktop')" id="view-desktop-btn" class="px-3 py-1 rounded-lg text-xs font-bold bg-purple-600 text-white transition-colors">
+                        <i class="fa-solid fa-desktop mr-1.5"></i> Laptop
+                    </button>
+                    <button onclick="switchView('mobile')" id="view-mobile-btn" class="px-3 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-colors">
+                        <i class="fa-solid fa-mobile-screen mr-1.5"></i> Celular
+                    </button>
+                </div>
+
+                <button onclick="closeDemo()" class="text-slate-400 hover:text-white p-2 text-2xl transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Contenido del Simulador -->
+            <div class="flex-1 bg-slate-950 p-3 sm:p-6 overflow-y-auto flex justify-center items-center">
+                <div id="mockup-wrapper" class="w-full transition-all duration-300 max-w-full">
+                    
+                    <!-- Simulación de Navegador -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+                        
+                        <!-- Barra de Dirección URL -->
+                        <div class="bg-slate-900 px-4 py-2.5 flex items-center border-b border-slate-800 text-xs text-slate-400 space-x-2">
+                            <div class="flex space-x-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-500 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500 inline-block"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                            </div>
+                            <div class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-3 py-1 text-center font-mono text-[11px] text-cyan-400 overflow-hidden text-ellipsis whitespace-nowrap" id="mockup-url">
+                                https://ejemplo-demo.com
+                            </div>
+                        </div>
+
+                        <!-- Render Dinámico Interactiva dentro del Modal -->
+                        <div id="demo-content" class="p-6 bg-slate-950 text-slate-100 min-h-[380px] max-h-[62vh] overflow-y-auto">
+                            <!-- El JS inserta el HTML dinámico de la demo -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Footer del Modal -->
+            <div class="p-4 bg-slate-950 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-xs text-slate-400 text-center sm:text-left">
+                    ¿Te gusta esta estructura? Puedo adaptarla con los colores, fotos y logo de tu negocio.
+                </p>
+                <button onclick="requestThisModel()" class="w-full sm:w-auto bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-extrabold px-6 py-3 rounded-xl text-xs transition-colors flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Elegir Este Modelo</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Interactividad -->
+    <script>
+        // Menú móvil
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Filtrado de modelos
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const modelCards = document.querySelectorAll('.model-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-gradient-to-r', 'from-purple-600', 'to-indigo-600', 'text-white', 'shadow-lg');
+                    b.classList.add('bg-slate-900', 'text-slate-300');
+                });
+                btn.classList.add('active', 'bg-gradient-to-r', 'from-purple-600', 'to-indigo-600', 'text-white', 'shadow-lg');
+
+                const filter = btn.getAttribute('data-filter');
+
+                modelCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        function sendCalculatedQuote() {
+        const selectedFeatures = [];
+        document.querySelectorAll('.calc-check:checked').forEach(cb => {
+            selectedFeatures.push(cb.value);
+        });
+        const featuresText = selectedFeatures.length > 0 
+            ? ` con las siguientes funciones: ${selectedFeatures.join(', ')}`
+            : '';
+        const message = encodeURIComponent(`Hola! Vi la página de NovaWeb Colombia y me gustaría solicitar una cotización para mi proyecto${featuresText}.`);
+        window.open(`https://wa.me/573001234567?text=${message}`, '_blank');
+    }
+
+    // Templates de demos interactivas (sin precios explícitos)
+        let currentModelTitle = '';
+
+        const demoTemplates = {
+            barberia: {
+                title: 'Urban Barber Club - Reservas On-Line',
+                badge: 'SERVICIOS / BARBERÍA',
+                url: 'https://urbanbarber-club.com',
+                html: `
+                    <div class="text-center py-4">
+                        <span class="text-amber-400 font-extrabold text-xs uppercase tracking-widest bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">ESTILO Y CORTE MASCULINO</span>
+                        <h2 class="text-2xl font-black text-white mt-3">AGENDA TU TURNO EN LÍNEA</h2>
+                        <p class="text-xs text-slate-400 mt-1 max-w-md mx-auto">Selecciona tu servicio y barbero favorito para atención sin demoras.</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 text-left max-w-lg mx-auto">
+                            <div class="p-4 bg-slate-900 border border-amber-500/30 rounded-xl hover:border-amber-400 cursor-pointer transition-all">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-sm text-white">Corte VIP + Barba Ritual</span>
+                                    <span class="text-amber-400 font-bold text-xs bg-amber-400/10 px-2 py-0.5 rounded">Reservar</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400">Duración: 45 min • Incluye toalla caliente</span>
+                            </div>
+                            <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl hover:border-amber-400 cursor-pointer transition-all">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-sm text-white">Perfilado de Barba</span>
+                                    <span class="text-amber-400 font-bold text-xs bg-amber-400/10 px-2 py-0.5 rounded">Reservar</span>
+                                </div>
+                                <span class="text-[10px] text-slate-400">Duración: 25 min</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-slate-900/80 border border-slate-800 rounded-2xl max-w-lg mx-auto">
+                            <p class="text-xs font-extrabold text-slate-300 mb-3 text-left">Elige tu Profesional:</p>
+                            <div class="flex justify-center space-x-6">
+                                <div class="text-center group cursor-pointer">
+                                    <div class="w-12 h-12 rounded-full bg-amber-500 text-slate-950 font-black mx-auto flex items-center justify-center text-sm shadow-lg shadow-amber-500/20">CS</div>
+                                    <span class="text-xs text-slate-300 block mt-1 font-semibold">Carlos S.</span>
+                                </div>
+                                <div class="text-center group cursor-pointer">
+                                    <div class="w-12 h-12 rounded-full bg-slate-800 text-slate-300 font-bold mx-auto flex items-center justify-center text-sm">MA</div>
+                                    <span class="text-xs text-slate-400 block mt-1">Mateo A.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="requestThisModel()" class="mt-6 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-black px-8 py-3 rounded-xl text-xs shadow-lg shadow-amber-500/20">
+                            Confirmar Reserva por WhatsApp
+                        </button>
+                    </div>
+                `
+            },
+            restaurante: {
+                title: 'Gourmet Grill - Menú Digital QR',
+                badge: 'GASTRONOMÍA / CARTA',
+                url: 'https://gourmetgrill-menu.com',
+                html: `
+                    <div class="py-2">
+                        <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-3">
+                            <div>
+                                <h2 class="text-xl font-black text-white">Gourmet Burger & Grill</h2>
+                                <p class="text-xs text-rose-400 font-semibold">Carta Digital Interactiva</p>
+                            </div>
+                            <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-3 py-1 rounded-full font-bold">● Abierto Ahora</span>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3.5 bg-slate-900 border border-slate-800 rounded-2xl">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl font-bold"><i class="fa-solid fa-burger"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-sm text-white">Burger Doble Tocino Bacon</h4>
+                                        <p class="text-[11px] text-slate-400">Carne 200g, queso cheddar, tocino crocante</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <button class="bg-rose-500 hover:bg-rose-400 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold mt-1">+ Pedir en Carta</button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3.5 bg-slate-900 border border-slate-800 rounded-2xl">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold"><i class="fa-solid fa-beer-mug-empty"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-sm text-white">Cerveza Artesanal IPA 500ml</h4>
+                                        <p class="text-[11px] text-slate-400">Fría de barril de la casa</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <button class="bg-rose-500 hover:bg-rose-400 text-white text-[10px] px-3 py-1.5 rounded-lg font-bold mt-1">+ Pedir en Carta</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-emerald-300 font-bold block">Pedido Directo a Mesa/Domicilio</span>
+                                <span class="text-xs font-bold text-slate-300">Enviado en tiempo real a cocina</span>
+                            </div>
+                            <button onclick="requestThisModel()" class="bg-emerald-500 text-slate-950 font-black px-4 py-2 rounded-xl text-xs">
+                                Pedir por WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                `
+            },
+            tienda: {
+                title: 'Moda Trend - Boutique E-Commerce',
+                badge: 'CATÁLOGO / TIENDA',
+                url: 'https://modatrend-store.com',
+                html: `
+                    <div class="py-2">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-black text-white">Nueva Colección Urbana</h2>
+                            <span class="text-xs text-cyan-400 font-bold">12 Productos disponibles</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-slate-900 border border-slate-800 p-3 rounded-2xl text-center">
+                                <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center mb-2 text-cyan-400 text-4xl">
+                                    <i class="fa-solid fa-shirt"></i>
+                                </div>
+                                <h4 class="font-bold text-xs text-white">Polera Oversize Minimal</h4>
+                                <button onclick="requestThisModel()" class="w-full bg-cyan-500 text-slate-950 font-extrabold text-[10px] py-2 rounded-lg mt-2">Consultar por Chat</button>
+                            </div>
+                            <div class="bg-slate-900 border border-slate-800 p-3 rounded-2xl text-center">
+                                <div class="h-28 bg-slate-950 rounded-xl flex items-center justify-center mb-2 text-cyan-400 text-4xl">
+                                    <i class="fa-solid fa-shoe-prints"></i>
+                                </div>
+                                <h4 class="font-bold text-xs text-white">Sneakers Streetwear</h4>
+                                <button onclick="requestThisModel()" class="w-full bg-cyan-500 text-slate-950 font-extrabold text-[10px] py-2 rounded-lg mt-2">Consultar por Chat</button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            clinica: {
+                title: 'Centro Dental & Médico - Soluciones',
+                badge: 'SALUD / CITAS',
+                url: 'https://centromedico-dental.com',
+                html: `
+                    <div class="py-2 text-center">
+                        <span class="text-teal-400 font-extrabold text-xs uppercase tracking-widest bg-teal-400/10 px-3 py-1 rounded-full border border-teal-400/20">ATENCIÓN PROFESIONAL</span>
+                        <h2 class="text-xl font-black text-white mt-2">Cuidamos Tu Sonrisa</h2>
+                        <p class="text-xs text-slate-400 mt-1 max-w-sm mx-auto">Agenda tu valoración inicial con nuestros especialistas.</p>
+                        
+                        <div class="mt-5 p-4 bg-slate-900 border border-slate-800 rounded-2xl text-left space-y-3">
+                            <div>
+                                <label class="text-[11px] text-slate-300 block mb-1 font-bold">Nombre Completo</label>
+                                <input type="text" placeholder="Ej: María Rodríguez" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white">
+                            </div>
+                            <div>
+                                <label class="text-[11px] text-slate-300 block mb-1 font-bold">Tratamiento Requerido</label>
+                                <select class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white">
+                                    <option>Diseño de Sonrisa & Blanqueamiento</option>
+                                    <option>Limpieza Dental Profunda</option>
+                                    <option>Ortodoncia / Brackets</option>
+                                </select>
+                            </div>
+                            <button onclick="requestThisModel()" class="w-full bg-teal-500 text-slate-950 font-black py-3 rounded-xl text-xs mt-2">Solicitar Cita de Valoración</button>
+                        </div>
+                    </div>
+                `
+            },
+            servicios: {
+                title: 'Servicios Corporativos & Soluciones',
+                badge: 'CORPORATIVO / EMPRESA',
+                url: 'https://servicios-empresariales.com',
+                html: `
+                    <div class="py-2">
+                        <div class="bg-gradient-to-r from-indigo-900 to-slate-900 p-5 rounded-2xl text-center mb-4 border border-indigo-500/30">
+                            <h2 class="text-xl font-black text-white">Soluciones e Ingeniería</h2>
+                            <p class="text-xs text-indigo-200 mt-1">Garantía y profesionalismo en cada proyecto</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+                            <div class="p-3.5 bg-slate-900 border border-slate-800 rounded-xl">
+                                <i class="fa-solid fa-wrench text-indigo-400 mb-2 text-xl"></i>
+                                <h4 class="font-bold text-xs text-white">Mantenimiento Industrial</h4>
+                                <p class="text-[10px] text-slate-400 mt-1">Garantía total de operatividad en plantas.</p>
+                            </div>
+                            <div class="p-3.5 bg-slate-900 border border-slate-800 rounded-xl">
+                                <i class="fa-solid fa-building text-indigo-400 mb-2 text-xl"></i>
+                                <h4 class="font-bold text-xs text-white">Remodelación de Locales</h4>
+                                <p class="text-[10px] text-slate-400 mt-1">Diseño arquitectónico y ejecuciones rápidas.</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            fitness: {
+                title: 'Power Fitness Club - Membresías',
+                badge: 'FITNESS / GIMNASIO',
+                url: 'https://powerfitness-club.com',
+                html: `
+                    <div class="py-2 text-center">
+                        <span class="text-emerald-400 font-extrabold text-xs uppercase tracking-widest bg-emerald-400/10 px-3 py-1 rounded-full border border-emerald-400/20">ENTRENA SIN LÍMITES</span>
+                        <h2 class="text-xl font-black text-white mt-2">PASE LIBRE DE PRUEBA POR 1 DÍA</h2>
+                        <p class="text-xs text-slate-400 mt-1 max-w-sm mx-auto">Prueba nuestras instalaciones y clases grupales sin compromiso.</p>
+                        
+                        <div class="grid grid-cols-2 gap-3 mt-5 text-left">
+                            <div class="p-3.5 bg-slate-900 border border-emerald-500/30 rounded-2xl">
+                                <span class="text-[10px] text-emerald-400 font-bold uppercase">Plan VIP</span>
+                                <h4 class="font-black text-white text-base mt-1">Membresía Completa</h4>
+                                <p class="text-[10px] text-slate-300 mt-1">Acceso total a musculación, saunas y clases ilimitadas.</p>
+                            </div>
+                            <div class="p-3.5 bg-slate-900 border border-slate-800 rounded-2xl">
+                                <span class="text-[10px] text-slate-400 font-bold uppercase">Plan Básico</span>
+                                <h4 class="font-black text-white text-base mt-1">Acceso a Máquinas</h4>
+                                <p class="text-[10px] text-slate-300 mt-1">Acceso a área de musculación y cardio.</p>
+                            </div>
+                        </div>
+                        <button onclick="requestThisModel()" class="mt-5 w-full bg-emerald-500 text-slate-950 font-black py-3 rounded-xl text-xs">Reclamar Pase Gratuito por WhatsApp</button>
+                    </div>
+                `
+            }
+        };
+
+        function openDemo(key) {
+            const data = demoTemplates[key];
+            if (!data) return;
+
+            currentModelTitle = data.title;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-badge').innerText = data.badge;
+            document.getElementById('mockup-url').innerText = data.url;
+            document.getElementById('demo-content').innerHTML = data.html;
+
+            document.getElementById('demo-modal').classList.remove('hidden');
+            switchView('desktop');
+        }
+
+        function closeDemo() {
+            document.getElementById('demo-modal').classList.add('hidden');
+        }
+
+        function switchView(view) {
+            const wrapper = document.getElementById('mockup-wrapper');
+            const desktopBtn = document.getElementById('view-desktop-btn');
+            const mobileBtn = document.getElementById('view-mobile-btn');
+
+            if (view === 'mobile') {
+                wrapper.classList.remove('max-w-full');
+                wrapper.classList.add('max-w-sm');
+                mobileBtn.classList.add('bg-purple-600', 'text-white');
+                mobileBtn.classList.remove('text-slate-400');
+                desktopBtn.classList.remove('bg-purple-600', 'text-white');
+                desktopBtn.classList.add('text-slate-400');
+            } else {
+                wrapper.classList.remove('max-w-sm');
+                wrapper.classList.add('max-w-full');
+                desktopBtn.classList.add('bg-purple-600', 'text-white');
+                desktopBtn.classList.remove('text-slate-400');
+                mobileBtn.classList.remove('bg-purple-600', 'text-white');
+                mobileBtn.classList.add('text-slate-400');
+            }
+        }
+
+        function requestThisModel() {
+        const message = encodeURIComponent(`Hola! Me gustó mucho el modelo de página web "${currentModelTitle}". Me gustaría adaptarlo para mi negocio.`);
+        window.open(`https://wa.me/573001234567?text=${message}`, '_blank');
+    }
+</script>
+</body>
+</html>
